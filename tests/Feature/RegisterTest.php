@@ -24,14 +24,12 @@ class RegisterTest extends TestCase
             'password_confirmation' => 'password'
         ];
 
-        $response = $this->postJson('/api/register', $payload);
+        $response = $this->postJson('/api/v1/register', $payload);
         $response->assertStatus(201);
 
         $user = User::latest()->first();
 
         $resource = (new UserResource($user))->response()->getData(true);
-
-        dump($resource);
 
         $response->assertJson([
             'success' => true,
