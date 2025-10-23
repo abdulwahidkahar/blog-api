@@ -10,6 +10,7 @@ A modern, robust Laravel-based REST API for a blog application with JWT authenti
 - **File Upload** - Image upload support for post covers
 - **Soft Deletes** - Safe deletion with restore capability
 - **Automatic Slug Generation** - SEO-friendly URLs
+- **Interactive API Documentation** - Professional docs with Scramble + Stoplight Elements
 - **Comprehensive Testing** - 16 tests with 105 assertions
 - **Clean Architecture** - Service layer, resources, and proper separation of concerns
 
@@ -18,11 +19,16 @@ A modern, robust Laravel-based REST API for a blog application with JWT authenti
 ### Interactive API Documentation
 Access the complete interactive API documentation at: **`/docs/api`**
 
+![API Documentation Preview](./public/preview.png)
+
+> **🎯 Professional API Documentation** - Interactive explorer with Stoplight Elements UI
+
 The documentation includes:
 - **Interactive API Explorer** - Test endpoints directly from the browser
 - **Request/Response Examples** - Complete examples for all endpoints
 - **Authentication Guide** - JWT token usage and examples
 - **Error Handling** - Detailed error responses and status codes
+- **Professional UI** - Clean, modern interface with dark/light themes
 
 ### API Endpoints
 
@@ -119,7 +125,15 @@ Run specific test files:
 
 ## 📝 API Documentation
 
-### Authentication
+### 🎯 Interactive API Explorer
+
+Our API documentation is powered by **Scramble** with **Stoplight Elements UI**, providing a professional and interactive experience.
+
+**Access Documentation:** `http://localhost/docs/api`
+
+### 📋 Quick API Reference
+
+#### Authentication
 
 #### Register User
 ```http
