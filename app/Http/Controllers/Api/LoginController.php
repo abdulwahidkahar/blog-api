@@ -6,8 +6,21 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\Request;
 
+/**
+ * @group Authentication
+ * 
+ * API endpoints for user authentication.
+ */
 class LoginController extends Controller
 {
+    /**
+     * User Login
+     * 
+     * Authenticate a user and return JWT token.
+     * 
+     * @param LoginRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function login(LoginRequest $request)
     {
         $validator = $request->validated();

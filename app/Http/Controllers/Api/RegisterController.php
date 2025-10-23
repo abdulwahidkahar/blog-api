@@ -9,8 +9,21 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
+/**
+ * @group Authentication
+ * 
+ * API endpoints for user registration.
+ */
 class RegisterController extends Controller
 {
+    /**
+     * User Registration
+     * 
+     * Register a new user account.
+     * 
+     * @param RegisterRequest $request
+     * @return UserResource
+     */
     public function register(RegisterRequest $request)
     {
         $validator = $request->validated();

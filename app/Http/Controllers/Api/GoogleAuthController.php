@@ -9,8 +9,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 
+/**
+ * @group Authentication
+ * 
+ * API endpoints for Google OAuth authentication.
+ */
 class GoogleAuthController extends Controller
 {
+    /**
+     * Google OAuth Login
+     * 
+     * Authenticate user using Google OAuth token.
+     * 
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function googleAuth(Request $request)
     {
         $request->validate([

@@ -13,7 +13,18 @@ A modern, robust Laravel-based REST API for a blog application with JWT authenti
 - **Comprehensive Testing** - 16 tests with 105 assertions
 - **Clean Architecture** - Service layer, resources, and proper separation of concerns
 
-## 📋 API Endpoints
+## 📋 API Documentation
+
+### Interactive API Documentation
+Access the complete interactive API documentation at: **`/docs/api`**
+
+The documentation includes:
+- **Interactive API Explorer** - Test endpoints directly from the browser
+- **Request/Response Examples** - Complete examples for all endpoints
+- **Authentication Guide** - JWT token usage and examples
+- **Error Handling** - Detailed error responses and status codes
+
+### API Endpoints
 
 ### Authentication
 ```

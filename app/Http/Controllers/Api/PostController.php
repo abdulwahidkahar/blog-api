@@ -11,6 +11,11 @@ use App\Services\PostService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
+/**
+ * @group Posts
+ * 
+ * API endpoints for managing blog posts. All endpoints require JWT authentication.
+ */
 class PostController extends Controller
 {
     protected PostService $postService;
@@ -19,12 +24,27 @@ class PostController extends Controller
     {
         $this->postService = $postService;
     }
+    /**
+     * Get all posts
+     * 
+     * Retrieve a paginated list of all blog posts.
+     * 
+     * @return AnonymousResourceCollection
+     */
     public function index(): AnonymousResourceCollection
     {
         $posts = $this->postService->getAll();
         return PostResource::collection($posts);
     }
 
+    /**
+     * Create a new post
+     * 
+     * Create a new blog post with optional cover image upload.
+     * 
+     * @param StorePostRequest $request
+     * @return StorePostResource
+     */
     public function store(StorePostRequest $request): StorePostResource
     {
         $validator = $request->validated();
@@ -33,12 +53,29 @@ class PostController extends Controller
         return new StorePostResource($post);
     }
 
+    /**
+     * Get a specific post
+     * 
+     * Retrieve a single blog post by its ID.
+     * 
+     * @param Post $post
+     * @return PostResource
+     */
     public function show(Post $post): PostResource
     {
         $post = $this->postService->getById($post->id);
         return new PostResource($post);
     }
 
+    /**
+     * Update a post
+     * 
+     * Update an existing blog post with new data.
+     * 
+     * @param StorePostRequest $request
+     * @param Post $post
+     * @return PostResource
+     */
     public function update(StorePostRequest $request, Post $post): PostResource
     {
         $validator = $request->validated();
@@ -46,6 +83,14 @@ class PostController extends Controller
         return new PostResource($post);
     }
 
+    /**
+     * Delete a post
+     * 
+     * Soft delete a blog post (can be restored later).
+     * 
+     * @param Post $post
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function destroy(Post $post)
     {
         $this->postService->delete($post);
