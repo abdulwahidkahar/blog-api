@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\GoogleAuthController;
 use App\Http\Controllers\Api\LoginController;
+use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\RegisterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -17,5 +18,10 @@ Route::prefix('v1')->group(function () {
         Route::post('/login', [LoginController::class, 'login']);
 
         Route::post('/google', [GoogleAuthController::class, 'googleAuth']);
+    });
+
+    // Post routes with authentication
+    Route::middleware('auth:api')->group(function () {
+        Route::apiResource('posts', PostController::class);
     });
 });
