@@ -1,61 +1,333 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Blog API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A modern, robust Laravel-based REST API for a blog application with JWT authentication, comprehensive CRUD operations, and clean architecture principles.
 
-## About Laravel
+## 🚀 Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **JWT Authentication** - Secure user authentication with JWT tokens
+- **User Management** - Registration, login, and Google OAuth integration
+- **Post CRUD Operations** - Complete blog post management
+- **File Upload** - Image upload support for post covers
+- **Soft Deletes** - Safe deletion with restore capability
+- **Automatic Slug Generation** - SEO-friendly URLs
+- **Comprehensive Testing** - 16 tests with 105 assertions
+- **Clean Architecture** - Service layer, resources, and proper separation of concerns
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 📋 API Endpoints
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Authentication
+```
+POST /api/v1/auth/register     - User registration
+POST /api/v1/auth/login        - User login
+POST /api/v1/auth/google       - Google OAuth login
+```
 
-## Learning Laravel
+### Posts (Protected Routes)
+```
+GET    /api/v1/posts           - Get all posts (paginated)
+GET    /api/v1/posts/{id}      - Get single post
+POST   /api/v1/posts           - Create new post
+PUT    /api/v1/posts/{id}      - Update post
+DELETE /api/v1/posts/{id}      - Delete post (soft delete)
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 🛠️ Tech Stack
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- **Framework:** Laravel 12.x
+- **Database:** MySQL 8.0
+- **Authentication:** JWT (tymon/jwt-auth)
+- **File Storage:** Laravel Storage
+- **Testing:** PHPUnit
+- **Container:** Docker with Laravel Sail
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 📦 Installation
 
-## Laravel Sponsors
+### Prerequisites
+- Docker & Docker Compose
+- PHP 8.2+
+- Composer
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Setup
 
-### Premium Partners
+1. **Clone the repository**
+```bash
+git clone <repository-url>
+cd blog-api
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+2. **Install dependencies**
+```bash
+composer install
+```
 
-## Contributing
+3. **Environment setup**
+```bash
+cp .env.example .env
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+4. **Start the application with Sail**
+```bash
+./vendor/bin/sail up -d
+```
 
-## Code of Conduct
+5. **Run migrations**
+```bash
+./vendor/bin/sail artisan migrate
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+6. **Generate application key**
+```bash
+./vendor/bin/sail artisan key:generate
+```
 
-## Security Vulnerabilities
+7. **Generate JWT secret**
+```bash
+./vendor/bin/sail artisan jwt:secret
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## 🧪 Testing
 
-## License
+Run the complete test suite:
+```bash
+./vendor/bin/sail test
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Run specific test files:
+```bash
+./vendor/bin/sail test tests/Feature/PostTest.php
+./vendor/bin/sail test tests/Feature/LoginTest.php
+./vendor/bin/sail test tests/Feature/RegisterTest.php
+```
+
+### Test Coverage
+- **16 tests** with **105 assertions**
+- **Authentication tests** - Login, registration, Google OAuth
+- **Post CRUD tests** - All CRUD operations with validation
+- **Authorization tests** - Protected routes and permissions
+- **Validation tests** - Input validation and error handling
+
+## 📝 API Documentation
+
+### Authentication
+
+#### Register User
+```http
+POST /api/v1/auth/register
+Content-Type: application/json
+
+{
+    "name": "John Doe",
+    "email": "john@example.com",
+    "password": "password",
+    "password_confirmation": "password"
+}
+```
+
+#### Login User
+```http
+POST /api/v1/auth/login
+Content-Type: application/json
+
+{
+    "email": "john@example.com",
+    "password": "password"
+}
+```
+
+### Posts
+
+#### Create Post
+```http
+POST /api/v1/posts
+Authorization: Bearer {jwt_token}
+Content-Type: multipart/form-data
+
+{
+    "title": "My Awesome Post",
+    "body": "This is the content of my post...",
+    "cover_image": [file] // optional
+}
+```
+
+#### Get All Posts
+```http
+GET /api/v1/posts
+Authorization: Bearer {jwt_token}
+```
+
+#### Update Post
+```http
+PUT /api/v1/posts/{id}
+Authorization: Bearer {jwt_token}
+Content-Type: application/json
+
+{
+    "title": "Updated Title",
+    "body": "Updated content..."
+}
+```
+
+## 🏗️ Architecture
+
+### Clean Architecture Implementation
+
+```
+app/
+├── Http/
+│   ├── Controllers/Api/     # API Controllers
+│   ├── Requests/            # Form Request Validation
+│   └── Resources/           # API Resources
+├── Models/                  # Eloquent Models
+├── Services/               # Business Logic Layer
+└── Console/Commands/       # Artisan Commands
+```
+
+### Key Components
+
+- **Controllers** - Handle HTTP requests and responses
+- **Services** - Business logic separation
+- **Resources** - API response formatting
+- **Requests** - Input validation
+- **Models** - Database relationships and logic
+
+## 🔧 Configuration
+
+### Environment Variables
+
+```env
+# Database
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=blog_api
+DB_USERNAME=sail
+DB_PASSWORD=password
+
+# JWT
+JWT_SECRET=your-jwt-secret
+JWT_TTL=60
+
+# Storage
+FILESYSTEM_DISK=public
+```
+
+### Docker Services
+
+- **Laravel App** - PHP 8.4 with Laravel
+- **MySQL** - Database server
+- **Redis** - Cache and session storage (optional)
+
+## 🚀 Deployment
+
+### Production Setup
+
+1. **Environment Configuration**
+```bash
+# Set production environment
+APP_ENV=production
+APP_DEBUG=false
+```
+
+2. **Optimize Application**
+```bash
+./vendor/bin/sail artisan config:cache
+./vendor/bin/sail artisan route:cache
+./vendor/bin/sail artisan view:cache
+```
+
+3. **Database Migration**
+```bash
+./vendor/bin/sail artisan migrate --force
+```
+
+## 📊 API Response Format
+
+### Success Response
+```json
+{
+    "success": true,
+    "message": "Operation successful",
+    "data": {
+        // Response data
+    }
+}
+```
+
+### Error Response
+```json
+{
+    "success": false,
+    "message": "Error message",
+    "errors": {
+        // Validation errors
+    }
+}
+```
+
+## 🔒 Security Features
+
+- **JWT Authentication** - Secure token-based auth
+- **Input Validation** - Comprehensive request validation
+- **CSRF Protection** - Cross-site request forgery protection
+- **SQL Injection Prevention** - Eloquent ORM protection
+- **File Upload Security** - Type and size validation
+
+## 🧩 Development
+
+### Code Quality
+
+- **PSR-12 Coding Standards** - Follows PHP standards
+- **Type Hints** - Full type declarations
+- **Documentation** - Comprehensive code comments
+- **Testing** - High test coverage
+
+### Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests for new features
+5. Ensure all tests pass
+6. Submit a pull request
+
+## 📈 Performance
+
+- **Database Optimization** - Efficient queries and indexing
+- **Caching** - Route and config caching
+- **File Storage** - Optimized file handling
+- **Pagination** - Efficient data loading
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+1. **JWT Token Issues**
+   - Ensure JWT_SECRET is set
+   - Check token expiration
+
+2. **Database Connection**
+   - Verify MySQL service is running
+   - Check database credentials
+
+3. **File Upload Issues**
+   - Ensure storage directory is writable
+   - Check file size limits
+
+## 📄 License
+
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## 👥 Authors
+
+- **Wahid** - *Initial work* - [GitHub](https://github.com/wahid)
+
+## 🙏 Acknowledgments
+
+- Laravel Framework
+- JWT Auth package
+- Laravel Sail
+- PHPUnit testing framework
+
+---
+
+**Built with ❤️ using Laravel**
